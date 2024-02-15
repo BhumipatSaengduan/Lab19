@@ -1,8 +1,8 @@
-#include<iostream>
-#include<string>
-#include<ctime>
-#include<cstdlib>
-#include<iomanip>
+#include <iostream>
+#include <string>
+#include <ctime>
+#include <cstdlib>
+#include <iomanip>
 
 using namespace std;
 
@@ -63,13 +63,39 @@ void Unit::newTurn(){
 	guard_on = false;
 }
 
+bool Unit::isDead(){
+	if (hp <= 0) return true ;
+	else return false ;
+}
 
+void Unit::guard(){
+    guard_on = true;
+}
 
-/////////////////////////////////////////////////////////////////////////////////////
-//Write function members isDead(), guard(), heal(), beAttacked(), and attack() here//
-/////////////////////////////////////////////////////////////////////////////////////
+int Unit::beAttacked(int oppatk) {
+    if (guard_on == false) {
+        hp -= oppatk - def;
+        return oppatk - def;
+    }
+    else {
+        hp -= (oppatk - def) / 3;
+        return (oppatk - def) / 3;
+    }
+}
 
+int Unit::attack(Unit &enemy){
+	return enemy.beAttacked(atk);
+}
 
+int Unit::heal(){
+	int hpheal = rand()%21+10;
+	hp += hpheal ;
+	if(hp > hpmax){
+		hpheal = hpmax + hpheal - hp;
+		hp = hpmax ;
+	}
+	return hpheal ;
+}
 
 void drawScene(char p_action,int p,char m_action,int m){
 	cout << "                                                       \n";
