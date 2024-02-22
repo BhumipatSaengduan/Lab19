@@ -1,4 +1,4 @@
-#include "lab19."
+#include "lab19.h"
 
 int main(){
 	srand(time(0));
